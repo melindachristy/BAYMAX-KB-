@@ -7,12 +7,16 @@ import matplotlib.pyplot as plt
 matplotlib.rcParams['xtick.direction'] = 'out'
 matplotlib.rcParams['ytick.direction'] = 'out'
 
+def rumus (X,Y): 
+Z = (4 - (2 * 1 * (X**2)) + (X**4) / 3) * (X**2) + (X*Y) + (-4 + (4 * (Y**2) ) * (Y**2))
+
+
 # Make data.
-X = np.arange(-2, 2, 0.01)
-Y = np.arange(-1, 1, 0.01)
+X = np.arange(-3, 3, 0.01)
+Y = np.arange(-3, 3, 0.01)
 X, Y = np.meshgrid(X, Y)
 #https://en.wikipedia.org/wiki/Rosenbrock_function
-Z = (4 - (2 * 1 * (X**2)) + (X**4) / 3) * (X**2) + (X*Y) + (-4 + (4 * (Y**2) ) * (Y**2))
+Z = (X,Y)
 
 num_func_params = 2
 num_swarm = 100
@@ -22,8 +26,8 @@ personal_best_position = np.copy(position)
 personal_best_value = np.zeros(num_swarm)
 
 for i in range(num_swarm):
-    #Z = (4 - (2 * 1 * (X**2)) + (X**4) / 3) * (X**2) + (X*Y) + (-4 + (4 * (Y**2) ) * (Y**2))
-    personal_best_value[i] = (4 - (2 * 1 * (position[i][0]**2)) + (position[i][0]**4) / 3) * (position[i][0]**2) + (position[i][0]*position[i][1]) + (-4 + (4 * (position[i][1]**2) ) * (position[i][1]**2))
+    #Z = (1-X)**2 + 1 *(Y-X**2)**2
+    personal_best_value[i] = rumus(position[i][0],position[i][1])
 
 tmax = 200
 c1 = 0.001
@@ -34,7 +38,7 @@ global_best_position = np.copy(personal_best_position[np.argmin(personal_best_va
 
 for t in range(tmax):
     for i in range(num_swarm):
-        error = ((1 + ((position[i][0] + position[i][1] + 1 )**2) * (19 - ( 14 * position[i][0] )+ (3 * position[i][0])**2) - (14*position[i][1]) + (6*position[i][0]*position[i][1]) + (3 * position[i][1])**2)) *(30 + ((2 * position[i][0]) - (3 * position[i][1])**2 )* (18 - (32*position[i][0]) + ((12 * position[i][0])**2) + (48*position[i][1]) - (36*position[i][0]*position[i][1]) + (27 * position[i][1]**2)))
+        error = rumus(position[i][0],position[i][1])
         if personal_best_value[i] > error:
             personal_best_value[i] = error
             personal_best_position[i] = position[i]
@@ -61,4 +65,4 @@ for t in range(tmax):
     plt.title('{0:03d}'.format(t))
     filename = 'img{0:03d}.png'.format(t)
     plt.savefig(filename, bbox_inches='tight')
-plt.close(fig)
+    plt.close(fig)

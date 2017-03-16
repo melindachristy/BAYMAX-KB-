@@ -8,7 +8,7 @@ matplotlib.rcParams['xtick.direction'] = 'out'
 matplotlib.rcParams['ytick.direction'] = 'out'
 
 def rumus (X,Y): 
-Z = ((1 + ((X + Y + 1 )**2) * (19 - ( 14 * X )+ (3 * X)**2) - (14*Y) + (6*X*Y) + (3 * Y)**2)) *(30 + ((2 * X) - (3 * Y)**2 )* (18 - (32*X) + ((12 * X)**2) + (48*Y) - (36*X*Y) + (27 * Y**2)))
+Z = (-1) * ((1 + np.cos(12 * np.sqrt(X**2 + Y**2))) / ((0.5 * (X**2 + Y**2)) + 2))
 
 
 # Make data.
